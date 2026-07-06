@@ -326,7 +326,112 @@ establecer una base sólida para el desarrollo del sistema. La actualización de
 que el proyecto continúa avanzando de manera satisfactoria y dentro de los plazos previstos,
 permitiendo continuar con las siguientes etapas de diseño e implementación. 
 
- 
+###Análisis Computacional###
+Sistema de Gestión para Kiosco
+Descripción General
+
+El sistema desarrollado corresponde a una aplicación destinada a la administración de un kiosco, cuyo
+propósito es optimizar el control de productos, el registro de ventas y la consulta de información
+relevante del negocio.
+
+Desde el punto de vista computacional, el sistema está compuesto por diferentes módulos que interactúan
+entre sí para procesar la información ingresada por el usuario y mantener actualizados los datos del
+negocio.
+
+Entradas del sistema
+
+El sistema recibe información ingresada por el usuario, entre la que se encuentra:
+
+Nombre del producto.
+Precio.
+Cantidad de stock.
+Productos seleccionados para una venta.
+Cantidad de unidades vendidas.
+
+Estos datos son validados antes de ser procesados para evitar errores durante la ejecución del sistema.
+
+Procesamiento
+
+Una vez ingresada la información, el sistema realiza diferentes procesos automáticamente:
+
+Registro de nuevos productos.
+Modificación y eliminación de productos.
+Búsqueda de productos.
+Cálculo automático del subtotal y total de una venta.
+Actualización del stock disponible.
+Registro del historial de ventas.
+Generación de estadísticas básicas del negocio.
+
+Cada operación modifica la información almacenada y mantiene la consistencia de los datos.
+
+Salidas del sistema
+
+Como resultado del procesamiento, el sistema muestra al usuario:
+
+Listado actualizado de productos.
+Stock disponible.
+Total de la venta realizada.
+Historial de ventas.
+Cantidad de productos registrados.
+Estadísticas generales del negocio.
+
+Toda esta información se presenta mediante una interfaz gráfica simple e intuitiva.
+
+Recursos utilizados:
+
+Hardware
+Computadora personal.
+Teclado y mouse.
+Monitor.
+Software
+Sistema operativo Windows.
+Visual Studio Code.
+Navegador web.
+HTML5.
+CSS3.
+JavaScript.
+MySQL (diseño de la base de datos).
+Algoritmo general del sistema
+El usuario inicia la aplicación.
+Selecciona la operación que desea realizar.
+Ingresa los datos correspondientes.
+El sistema valida la información ingresada.
+Se procesan los datos.
+Se actualiza la información almacenada.
+Se muestran los resultados al usuario.
+El sistema queda disponible para realizar una nueva operación.
+
+Diagrama simplificado del funcionamiento:
+
+           Usuario
+              │
+              ▼
+      Ingreso de datos
+              │
+              ▼
+   Validación de información
+              │
+              ▼
+      Procesamiento interno
+              │
+              ▼
+ Actualización de productos
+      y registro de ventas
+              │
+              ▼
+      Presentación de resultados
+              │
+              ▼
+           Usuario
+
+Conclusión final:
+
+El análisis computacional permitió identificar las entradas, procesos y salidas del sistema, además
+de los recursos necesarios para su funcionamiento. La estructura desarrollada garantiza una
+administración ordenada de la información del kiosco, facilitando el control de productos, la gestión
+de ventas y la consulta de datos relevantes. El diseño modular del sistema favorece futuras mejoras y
+la incorporación de nuevas funcionalidades, permitiendo que el proyecto pueda ampliarse de acuerdo con
+las necesidades del negocio.
 
 Alumnos: Torps Mateo, Pirola Lucas y Silva Yoel. 
 
