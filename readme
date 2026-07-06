@@ -1,0 +1,337 @@
+Entrega 1: Equipos, Roles e Ideas Iniciales 
+
+ 
+
+Nombre del proyecto: 
+
+Adminístrate tu Kiosco - Sistema de Gestión para Kioscos 
+
+ 
+
+Integrantes y roles: 
+
+Integrantes con cada: 
+
+Rol:  
+
+ 
+
+Funciones: 
+
+ 
+
+Torps Mateo 
+
+Líder de proyecto 
+
+Organización, documentación y seguimiento 
+
+ 
+
+Silva Yoel 
+
+Analista y diseñador 
+
+Requerimientos, casos de uso y diseño de interfaces 
+
+ 
+
+Pirola Lucas 
+
+Desarrollador 
+
+Programación y base de datos 
+
+ 
+
+Idea inicial: 
+
+Nosotros creemos que es necesaria una aplicación destinada a la administración de un kiosco que en
+principio permita: 
+
+Gestionar productos. 
+
+Controlar stock. 
+
+Registrar ventas. 
+
+Consultar historial de ventas. 
+
+Generar reportes básicos. 
+
+Gestionar usuarios del sistema. 
+
+ 
+
+Problema detectado: 
+Vimos que muchos kioscos realizan el control de stock y ventas de forma escrita u oral, y cuando
+esto no está bien organizado suelen ocurrir varios errores. 
+
+ 
+
+Objetivo general: 
+
+Queremos desarrollar un sistema que facilite la administración de un kiosco mediante la automatización
+de tareas, control de inventario y ventas. 
+
+
+
+Entrega 2: Proyecto + Gantt + Curva S Proyectada 
+
+ 
+
+Alcance del proyecto: 
+
+ 
+
+El sistema permitirá: 
+
+Gestión de productos: 
+
+Entrada de productos. 
+
+Salida de productos. 
+
+Modificación de productos. 
+
+Consulta de productos. 
+
+ 
+
+Gestión de stock: 
+
+Control de inventario. 
+
+Actualización automática tras una venta. 
+
+Alertas de stock bajo. 
+
+ 
+
+Gestión de ventas: 
+
+Registro de ventas. 
+
+Cálculo automático del total. 
+
+Historial de ventas. 
+
+ 
+
+Gestión de usuarios: 
+
+Inicio de sesión. 
+
+Administrador. 
+
+Empleado. 
+
+Gantt proyectado: 
+
+Semana 
+
+
+
+Actividad 
+
+1 - Formación del equipo y planificación. 
+
+2 - Análisis de lo que necesitamos. 
+
+3 - Diseño preliminar. 
+
+4 - Diseño técnico y base de datos. 
+
+5 - Desarrollo del módulo de productos. 
+
+6 - Desarrollo del módulo de ventas. 
+
+7 - Integración y pruebas. 
+
+8 - Corrección de errores. 
+
+9 - Presentación final. 
+
+
+
+Curva S proyectada: 
+
+Semana 
+
+Avance acumulado 
+
+1 - 5% 
+
+2 - 15% 
+
+3 - 25% 
+
+4 - 40% 
+
+5 - 60% 
+
+6 - 75% 
+
+7 - 90% 
+
+8 - 95% 
+
+9 - 100% 
+
+
+Entrega 3: Alcance, Requerimientos y Curva S Actualizada. 
+
+Alcance del Proyecto 
+
+Descripción: 
+
+El proyecto tiene como finalidad desarrollar un sistema de gestión para un kiosco, que busca facilitar
+la administración diaria del negocio mediante una aplicación sencilla e intuitiva. 
+
+El sistema permitirá registrar un usuario, registrar productos, controlar el stock disponible,
+realizar ventas, consultar el historial de operaciones y visualizar información básica del
+funcionamiento del kiosco. 
+
+Está pensado para pequeños comercios que actualmente realizan estas tareas de forma manual y
+necesitan una herramienta informática que les permita agilizar el trabajo, reducir errores y
+mejorar la organización. 
+
+Funcionalidades principales: 
+
+Login. 
+
+Registro de ventas. 
+
+Gestión de productos. 
+
+Control de stock. 
+
+Historial de ventas. 
+
+Alcance del sistema: 
+
+El proyecto se desarrollará como una aplicación de escritorio/web local, sin integración con sistemas
+de facturación electrónica, pagos en línea o lectores de código de barras. El objetivo es dar una
+solución simple para la administración básica del negocio. 
+
+Estudio y definición del usuario 
+
+Usuario objetivo: 
+
+El sistema está dirigido principalmente a propietarios y empleados de kioscos de pequeña y mediana escala. 
+
+Características del usuario: 
+
+Posee conocimientos básicos de informática.  
+
+Necesita registrar ventas de manera rápida.  
+
+Requiere controlar el stock de productos.  
+
+Consulta frecuentemente el historial de ventas.  
+
+Busca una herramienta simple, rápida y fácil de utilizar.  
+
+Por este motivo, la interfaz fue diseñada con un estilo minimalista, intuitivo y de acceso rápido a
+las funciones principales. 
+
+ 
+
+Requerimientos del Sistema 
+
+Requerimientos Funcionales: 
+
+RF-1: Registrar un nuevo usuario. 
+
+RF-2: Registrar nuevos productos. 
+
+RF-3: Modificar productos existentes. 
+
+RF-4: Eliminar productos. 
+
+RF-5: Almacenar nombre, precio y stock de cada producto. 
+
+RF-6: Buscar productos para realizar ventas. 
+
+RF-7: Agregar productos a un carrito de compra. 
+
+RF-8: Calcular automáticamente subtotales y total de la venta. 
+
+RF-9: Descontar automáticamente el stock luego de cada venta. 
+
+RF-10: Registrar las ventas realizadas. 
+
+RF-11: Consultar el historial de ventas. 
+
+ 
+
+Requerimientos No Funcionales: 
+
+RNF-1: Interfaz intuitiva y fácil de utilizar. 
+
+RNF-2: Respuesta rápida a las acciones del usuario. 
+
+RNF-3: Conservación de datos mediante almacenamiento local durante el desarrollo del prototipo. 
+
+RNF-4: Compatibilidad con navegadores modernos que soporten HTML5, CSS3 y JavaScript. 
+
+ 
+
+Curva S actualizada:
+
+Avance acumulado 
+
+1 - 5% 
+
+2 - 15% 
+
+3 - 20% 
+
+4 - 30% 
+
+5 - 50% 
+
+6 - 75% 
+
+7 - 90% 
+
+8 - 95% 
+
+9 - 100% 
+
+Fundamentación de las desviaciones: 
+
+Durante el desarrollo del proyecto se detectaron pequeñas diferencias entre el cronograma
+planificado y el avance real. 
+
+Las principales causas fueron: 
+
+Tiempo adicional destinado al aprendizaje y práctica de las tecnologías utilizadas.  
+
+Corrección de errores encontrados durante la implementación de las funcionalidades.  
+
+Mejoras en el diseño de la interfaz para optimizar la experiencia del usuario.  
+
+Coordinación entre los integrantes del grupo para distribuir las tareas.  
+
+A pesar de estas diferencias, el proyecto mantiene un avance acorde al cronograma previsto y no
+compromete el cumplimiento de los objetivos establecidos. 
+
+ 
+
+Conclusión: 
+
+El análisis del alcance, la definición del usuario y la elaboración de los requerimientos permitieron
+establecer una base sólida para el desarrollo del sistema. La actualización de la Curva S demuestra
+que el proyecto continúa avanzando de manera satisfactoria y dentro de los plazos previstos,
+permitiendo continuar con las siguientes etapas de diseño e implementación. 
+
+ 
+
+Alumnos: Torps Mateo, Pirola Lucas y Silva Yoel. 
+
+Profesor: Perez Lorenzo. 
+
+Año: 7mo 5ta. 
+
+Escuela: EEST N°1 José Rafael Cantón.

@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <title>
+        Historial - Adminístrate tu Kiosco
+    </title>
+
+    <link
+        rel="stylesheet"
+        href="css/estilos.css">
+
+    <script>
+    if (localStorage.getItem("sesionActiva") !== "true") {
+        window.location.href = "login.html";
+    }
+    </script>
+
+</head>
+
+<body>
+
+<nav class="sidebar">
+
+    <h2>Adminístrate tu Kiosco</h2>
+
+    <a href="index.html">
+        Inicio
+    </a>
+
+    <a href="productos.html">
+        Productos
+    </a>
+
+    <a href="ventas.html">
+        Ventas
+    </a>
+
+    <a href="historial.html">
+        Historial
+    </a>
+
+    <a href="#" onclick="cerrarSesion()" style="margin-top: 30px; background: #dc2626; color: white;">Cerrar Sesión</a>
+
+    <script>
+    function cerrarSesion() {
+        localStorage.removeItem("sesionActiva");
+        localStorage.removeItem("nombreUsuario");
+        window.location.href = "login.html";
+    }
+    </script>
+</nav>
+
+<main class="contenido-principal">
+
+    <h1 class="titulo">
+        Historial de Ventas
+    </h1>
+
+    <table>
+
+        <thead>
+
+            <tr>
+
+                <th>Fecha</th>
+
+                <th>Productos</th>
+
+                <th>Total</th>
+
+            </tr>
+
+        </thead>
+
+        <tbody id="tablaHistorial">
+
+        </tbody>
+
+    </table>
+
+</main>
+
+<script src="js/historial.js"></script>
+
+</body>
+</html>

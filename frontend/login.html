@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - Adminístrate tu Kiosco</title>
+    <link rel="stylesheet" href="css/estilos.css">
+    <style>
+        /* Los estilos para centrar el login en la pantalla */
+        .contenedor-login {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 100vw;
+            height: 100vh;
+            background: #f1f5f9;
+        }
+        .card-login {
+            width: 100%;
+            max-width: 400px;
+            padding: 40px;
+        }
+        .card-login h2 {
+            text-align: center;
+            color: #0f172a;
+            margin-bottom: 25px;
+            font-size: 1.6rem;
+        }
+        .grupo-formulario {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+        .grupo-formulario input {
+            width: 100%;
+        }
+        .btn-login {
+            width: 100%;
+            padding: 14px;
+        }
+        .error-mensaje {
+            color: #dc2626;
+            background: #fee2e2;
+            padding: 10px;
+            border-radius: 8px;
+            font-size: 0.9rem;
+            text-align: center;
+            margin-bottom: 15px;
+            display: none; /* Se muestra solo si falla */
+        }
+    </style>
+</head>
+<body>
+
+    <div class="contenedor-login">
+        <div class="card card-login">
+            <h2>Adminístrate tu Kiosco</h2>
+            
+            <div id="mensajeError" class="error-mensaje"></div>
+
+            <form id="formularioLogin" onsubmit="validarLogin(event)">
+                <div class="grupo-formulario">
+                    <input type="text" id="usuario" placeholder="Usuario" required>
+                    <input type="password" id="contrasenia" placeholder="Contraseña" required>
+                </div>
+                <button type="submit" class="btn-login">Ingresar</button>
+            </form>
+        </div>
+    </div>
+
+    <script src="js/login.js"></script>
+</body>
+</html>

@@ -1,0 +1,279 @@
+/* RESET Y CONFIGURACIÓN BASE */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', -apple-system, sans-serif;
+}
+
+body {
+    display: flex;
+    min-height: 100vh;
+    background: #f1f5f9;
+    color: #1e293b;
+}
+
+/* MENÚ LATERAL */
+.sidebar {
+    width: 260px;
+    background: #0f172a;
+    padding: 25px;
+    box-shadow: 4px 0 15px rgba(0, 0, 0, .1);
+    flex-shrink: 0; 
+}
+
+.sidebar h2 {
+    color: white;
+    margin-bottom: 40px;
+    text-align: center;
+    font-size: 1.3rem;
+    letter-spacing: 0.5px;
+    line-height: 1.4;
+}
+
+.sidebar a {
+    display: block;
+    padding: 12px 15px;
+    margin-bottom: 10px;
+    border-radius: 10px;
+    color: #cbd5e1;
+    text-decoration: none;
+    transition: all .3s ease;
+}
+
+.sidebar a:hover {
+    background: #2563eb;
+    color: white;
+}
+
+/* Para identificar de manera básica si la página esta activa según la URL */
+.sidebar a[href=""]:hover {
+    background: #2563eb;
+}
+
+/* CONTENIDO PRINCIPAL Y LAYOUTS */
+.contenido-principal {
+    flex: 1;
+    padding: 35px;
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.titulo {
+    color: #0f172a;
+    font-size: 1.8rem;
+    font-weight: 700;
+    margin-bottom: 10px;
+}
+
+/* Grilla del Dashboard (index.html) */
+.dashboard {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 20px;
+    width: 100%;
+}
+
+/* CARDS (TARJETAS DE INFORME Y CONTENEDORES) */
+.card {
+    background: white;
+    border-radius: 15px;
+    padding: 25px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, .05);
+    border: 1px solid #e2e8f0;
+    transition: transform .3s ease, box-shadow .3s ease;
+}
+
+/* Animación solo para las tarjetas indicadoras del index */
+.dashboard .card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 10px 22px rgba(0, 0, 0, .08);
+}
+
+.card h3 {
+    color: #64748b;
+    font-size: 0.9rem;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-bottom: 10px;
+}
+
+.card p {
+    font-size: 28px;
+    font-weight: 700;
+    color: #2563eb;
+}
+
+/* Si hay un h2 dentro de una card (como en ventas.html para el Carrito) */
+.card h2 {
+    color: #1e293b;
+    font-size: 1.3rem;
+    margin-bottom: 15px;
+}
+
+/* FORMULARIOS e INPUTS */
+.formulario {
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
+    align-items: center;
+}
+
+input,
+select {
+    padding: 12px;
+    border: 1px solid #cbd5e1;
+    border-radius: 10px;
+    min-width: 180px;
+    flex: 1;
+    font-size: 0.95rem;
+    color: #334155;
+    background-color: #ffffff;
+    transition: border-color .2s, box-shadow .2s;
+}
+
+input:focus,
+select:focus {
+    outline: none;
+    border-color: #2563eb;
+    box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.15);
+}
+
+/* BOTONES */
+button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    background: #2563eb;
+    color: white;
+    border: none;
+    padding: 12px 22px;
+    border-radius: 10px;
+    font-size: 0.95rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all .2s ease;
+}
+
+button:hover {
+    background: #1d4ed8;
+}
+
+button:active {
+    transform: scale(0.98);
+}
+
+.btn-eliminar { background: #dc2626; }
+.btn-eliminar:hover { background: #b91c1c; }
+
+.btn-editar { background: #f59e0b; }
+.btn-editar:hover { background: #d97706; }
+
+/* TABLAS ESTILIZADAS Y RESPONSIVE */
+table {
+    width: 100%;
+    border-collapse: separate; /* Cambiado a separate para que funcione el border-radius */
+    border-spacing: 0;
+    background: white;
+    border-radius: 15px;
+    overflow: hidden; /* Esto hace que las esquinas de la tabla queden redondas */
+    box-shadow: 0 4px 15px rgba(0, 0, 0, .05);
+    border: 1px solid #e2e8f0;
+    margin: 15px 0;
+}
+
+thead {
+    background: #2563eb;
+    color: white;
+}
+
+th, td {
+    padding: 16px;
+    text-align: center;
+}
+
+th {
+    font-weight: 600;
+    font-size: 0.95rem;
+}
+
+td {
+    border-bottom: 1px solid #f1f5f9;
+    color: #334155;
+}
+
+/* Hace que la última fila no tenga línea abajo tapando la curva */
+tbody tr:last-child td {
+    border-bottom: none;
+}
+
+tbody tr:nth-child(even) {
+    background: #f8fafc;
+}
+
+tbody tr:hover {
+    background: #f1f5f9;
+}
+
+/* Ventas recientes e Historial */
+.ventas-recientes {
+    background: white;
+    padding: 25px;
+    border-radius: 15px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, .05);
+    border: 1px solid #e2e8f0;
+}
+
+.ventas-recientes h2 {
+    font-size: 1.3rem;
+    color: #1e293b;
+    margin-bottom: 15px;
+}
+
+.lista-ventas {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.lista-ventas li {
+    padding: 12px 15px;
+    background: #f8fafc;
+    border-left: 4px solid #2563eb;
+    border-radius: 6px;
+    font-size: 0.95rem;
+}
+
+#totalGeneral {
+    color: #16a34a;
+    font-size: 30px;
+    font-weight: 700;
+    margin: 15px 0;
+}
+
+/* Contenedor dinámico de información de producto (ventas.html) */
+#infoProducto {
+    margin-top: 15px;
+    font-size: 0.95rem;
+    color: #64748b;
+}
+
+/* Responsive para pantallas chicas */
+@media (max-width: 768px) {
+    body {
+        flex-direction: column;
+    }
+    .sidebar {
+        width: 100%;
+        padding: 20px;
+    }
+    .sidebar h2 {
+        margin-bottom: 20px;
+    }
+    .contenido-principal {
+        padding: 20px;
+    }
+}
