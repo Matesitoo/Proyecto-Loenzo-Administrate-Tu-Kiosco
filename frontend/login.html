@@ -6,7 +6,6 @@
     <title>Login - Adminístrate tu Kiosco</title>
     <link rel="stylesheet" href="css/estilos.css">
     <style>
-        /* Los estilos para centrar el login en la pantalla */
         .contenedor-login {
             display: flex;
             justify-content: center;
@@ -47,12 +46,11 @@
             font-size: 0.9rem;
             text-align: center;
             margin-bottom: 15px;
-            display: none; /* Se muestra solo si falla */
+            display: none;
         }
     </style>
 </head>
 <body>
-
     <div class="contenedor-login">
         <div class="card card-login">
             <h2>Adminístrate tu Kiosco</h2>
@@ -62,13 +60,18 @@
             <form id="formularioLogin" onsubmit="validarLogin(event)">
                 <div class="grupo-formulario">
                     <input type="text" id="usuario" placeholder="Usuario" required>
-                    <input type="password" id="contrasenia" placeholder="Contraseña" required>
+                    <input type="password" id="contrasenia" placeholder="Contrasenia" required>
                 </div>
                 <button type="submit" class="btn-login">Ingresar</button>
             </form>
+            
+            <p style="text-align:center; margin-top:15px; font-size:0.85rem; color:#64748b;">
+                Usuario: admin / Contrasenia: admin123
+            </p>
         </div>
     </div>
 
+    <script src="js/utils.js"></script>
     <script src="js/login.js"></script>
 </body>
 </html>

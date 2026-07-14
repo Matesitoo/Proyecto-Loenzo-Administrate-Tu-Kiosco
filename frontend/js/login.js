@@ -1,31 +1,86 @@
-// Credenciales fijas de acceso
-const USUARIO_CORRECTO = "mateo";
-const CONTRASENIA_CORRECTA = "1234";
+// login.js - Sistema de autenticacion
+
+console.log('login.js cargado correctamente');
+
+var USUARIOS = [
+    {
+        id: '1',
+        nombre_usuario: 'admin',
+        contrasenia: hashPassword('admin123'),
+        nombre_completo: 'Administrador',
+        rol: 'admin'
+    },
+    {
+        id: '2',
+        nombre_usuario: 'vendedor',
+        contrasenia: hashPassword('vendedor123'),
+        nombre_completo: 'Vendedor Principal',
+        rol: 'vendedor'
+    }
+];
+
+function cargarUsuarios() {
+    try {
+        var usuariosGuardados = localStorage.getItem('usuarios');
+        if (usuariosGuardados) {
+            var parsed = JSON.parse(usuariosGuardados);
+            if (Array.isArray(parsed) && parsed.length > 0) {
+                return parsed;
+            }
+        }
+    } catch (error) {
+        console.warn('Error al cargar usuarios:', error.message);
+        localStorage.removeItem('usuarios');
+    }
+    
+    localStorage.setItem('usuarios', JSON.stringify(USUARIOS));
+    return USUARIOS;
+}
 
 function validarLogin(event) {
-    // Es para que la página no se recargue al enviar el formulario
     event.preventDefault();
 
-    const usuarioIngresado = document.getElementById("usuario").value.trim();
-    const contraseniaIngresada = document.getElementById("contrasenia").value;
-    const mensajeError = document.getElementById("mensajeError");
+    var usuarioInput = document.getElementById('usuario');
+    var contraseniaInput = document.getElementById('contrasenia');
+    var mensajeError = document.getElementById('mensajeError');
 
-    // Validamos
-    if (usuarioIngresado === USUARIO_CORRECTO && contraseniaIngresada === CONTRASENIA_CORRECTA) {
-        // Guardamos en localStorage que el usuario inició sesión
-        localStorage.setItem("sesionActiva", "true");
-        localStorage.setItem("nombreUsuario", usuarioIngresado);
+    var usuarioIngresado = usuarioInput.value.trim();
+    var contraseniaIngresada = contraseniaInput.value;
 
-        // Redireccionamos al index (Dashboard)
-        window.location.href = "index.html";
+    if (!usuarioIngresado || !contraseniaIngresada) {
+        mensajeError.innerText = 'Complete todos los campos.';
+        mensajeError.style.display = 'block';
+        return;
+    }
+
+    var usuarios = cargarUsuarios();
+    var usuario = null;
+    
+    for (var i = 0; i < usuarios.length; i++) {
+        if (usuarios[i].nombre_usuario === usuarioIngresado) {
+            usuario = usuarios[i];
+            break;
+        }
+    }
+    
+    if (!usuario) {
+        mensajeError.innerText = 'Usuario o contrasenia incorrectos.';
+        mensajeError.style.display = 'block';
+        return;
+    }
+
+    if (usuario.contrasenia === hashPassword(contraseniaIngresada)) {
+        localStorage.setItem('sesionActiva', 'true');
+        localStorage.setItem('nombreUsuario', usuario.nombre_completo);
+        localStorage.setItem('usuarioActual', JSON.stringify(usuario));
+        window.location.href = 'index.html';
     } else {
-        // Mostramos el error si los datos son incorrectos
-        mensajeError.innerText = "Usuario o contraseña incorrectos.";
-        mensajeError.style.display = "block";
+        mensajeError.innerText = 'Usuario o contrasenia incorrectos.';
+        mensajeError.style.display = 'block';
     }
 }
 
-// Si el usuario ya está logueado y entra a login.html, lo mandamos al index directo
-if (localStorage.getItem("sesionActiva") === "true") {
-    window.location.href = "index.html";
+// Si el usuario ya esta logueado
+if (localStorage.getItem('sesionActiva') === 'true') {
+    window.location.href = 'index.html';
 }

@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reportes - Adminístrate tu Kiosco</title>
+    <link rel="stylesheet" href="css/estilos.css">
+    <script>
+        if (localStorage.getItem("sesionActiva") !== "true") {
+            window.location.href = "login.html";
+        }
+    </script>
+</head>
+<body>
+    <nav class="sidebar">
+        <h2>Adminístrate tu Kiosco</h2>
+        <a href="index.html">Inicio</a>
+        <a href="productos.html">Productos</a>
+        <a href="ventas.html">Ventas</a>
+        <a href="historial.html">Historial</a>
+        <a href="reportes.html" class="active">Reportes</a>
+        <a href="calculadora.html">Calculadora</a>
+        <a href="#" onclick="cerrarSesion()" style="margin-top: 30px; background: #dc2626; color: white;">Cerrar Sesion</a>
+    </nav>
+
+    <main class="contenido-principal">
+        <h1 class="titulo">Reportes y Estadisticas</h1>
+
+        <div class="graficos-container">
+            <div class="grafico-card">
+                <h3>Ventas por Dia</h3>
+                <canvas id="graficoVentas"></canvas>
+            </div>
+            <div class="grafico-card">
+                <h3>Productos Mas Vendidos</h3>
+                <canvas id="graficoProductos"></canvas>
+            </div>
+        </div>
+
+        <br>
+
+        <div class="card">
+            <h3>Resumen General</h3>
+            <div id="resumenReportes" style="display:grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap:20px; margin-top:15px;">
+                <div>
+                    <h4>Total Ventas</h4>
+                    <p id="totalVentasReporte" style="font-size:24px; font-weight:bold; color:#2563eb;">0</p>
+                </div>
+                <div>
+                    <h4>Ingresos Totales</h4>
+                    <p id="ingresosReporte" style="font-size:24px; font-weight:bold; color:#10b981;">$0</p>
+                </div>
+                <div>
+                    <h4>Productos en Stock</h4>
+                    <p id="stockReporte" style="font-size:24px; font-weight:bold; color:#8b5cf6;">0</p>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="js/utils.js"></script>
+    <script src="js/reportes.js"></script>
+</body>
+</html>

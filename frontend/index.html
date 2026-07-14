@@ -1,136 +1,58 @@
 <!DOCTYPE html>
 <html lang="es">
-
 <head>
-
     <meta charset="UTF-8">
-
-    <meta
-        name="viewport"
-        content="width=device-width, initial-scale=1.0">
-
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Adminístrate tu Kiosco</title>
-
-    <link
-        rel="stylesheet"
-        href="css/estilos.css">
-
+    <link rel="stylesheet" href="css/estilos.css">
     <script>
-    if (localStorage.getItem("sesionActiva") !== "true") {
-        window.location.href = "login.html";
-    }
+        if (localStorage.getItem("sesionActiva") !== "true") {
+            window.location.href = "login.html";
+        }
     </script>
-
 </head>
-
 <body>
+    <nav class="sidebar">
+        <h2>Adminístrate tu Kiosco</h2>
+        <a href="index.html" class="active">Inicio</a>
+        <a href="productos.html">Productos</a>
+        <a href="ventas.html">Ventas</a>
+        <a href="historial.html">Historial</a>
+        <a href="reportes.html">Reportes</a>
+        <a href="calculadora.html">Calculadora</a>
+        <a href="#" onclick="cerrarSesion()" style="margin-top: 30px; background: #dc2626; color: white;">Cerrar Sesion</a>
+    </nav>
 
-<nav class="sidebar">
+    <main class="contenido-principal">
+        <h1 class="titulo">Panel de Control</h1>
+        <p id="nombreUsuario" style="color: #64748b; margin-bottom: 15px;"></p>
 
-    <h2>Adminístrate tu Kiosco</h2>
-
-    <a href="index.html">
-        Inicio
-    </a>
-
-    <a href="productos.html">
-        Productos
-    </a>
-
-    <a href="ventas.html">
-        Ventas
-    </a>
-
-    <a href="historial.html">
-        Historial
-    </a>
-
-    <a href="#" onclick="cerrarSesion()" style="margin-top: 30px; background: #dc2626; color: white;">Cerrar Sesión</a>
-
-    <script>
-    function cerrarSesion() {
-        localStorage.removeItem("sesionActiva");
-        localStorage.removeItem("nombreUsuario");
-        window.location.href = "login.html";
-    }
-    </script>
-</nav>
-
-<main class="contenido-principal">
-
-    <h1 class="titulo">
-        Inicio
-    </h1>
-
-    <div class="dashboard">
-
-        <div class="card">
-
-            <h3>
-                Productos
-            </h3>
-
-            <p id="cantProductos">
-                0
-            </p>
-
+        <div class="dashboard">
+            <div class="card">
+                <h3>Productos</h3>
+                <p id="cantProductos">0</p>
+            </div>
+            <div class="card">
+                <h3>Ventas</h3>
+                <p id="cantVentas">0</p>
+            </div>
+            <div class="card">
+                <h3>Ingresos</h3>
+                <p id="ingresos">$0</p>
+            </div>
+            <div class="card">
+                <h3>Stock Bajo</h3>
+                <p id="stockBajo">0</p>
+            </div>
         </div>
 
-        <div class="card">
+        <section class="ventas-recientes">
+            <h2>Ultimas Ventas</h2>
+            <ul id="ultimasVentas" class="lista-ventas"></ul>
+        </section>
+    </main>
 
-            <h3>
-                Ventas
-            </h3>
-
-            <p id="cantVentas">
-                0
-            </p>
-
-        </div>
-
-        <div class="card">
-
-            <h3>
-                Ingresos
-            </h3>
-
-            <p id="ingresos">
-                $0
-            </p>
-
-        </div>
-
-        <div class="card">
-
-            <h3>
-                Stock Bajo
-            </h3>
-
-            <p id="stockBajo">
-                0
-            </p>
-
-        </div>
-
-    </div>
-
-    <section class="ventas-recientes">
-
-        <h2>
-            Últimas Ventas
-        </h2>
-
-        <ul
-            id="ultimasVentas"
-            class="lista-ventas">
-
-        </ul>
-
-    </section>
-
-</main>
-
-<script src="js/dashboard.js"></script>
-
+    <script src="js/utils.js"></script>
+    <script src="js/dashboard.js"></script>
 </body>
 </html>

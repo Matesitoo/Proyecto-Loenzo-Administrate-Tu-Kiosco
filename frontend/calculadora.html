@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculadora - Adminístrate tu Kiosco</title>
+    <link rel="stylesheet" href="css/estilos.css">
+    <style>
+        .calculadora-wrapper {
+            display: grid;
+            grid-template-columns: 1fr 300px;
+            gap: 30px;
+            align-items: start;
+        }
+        
+        .calculadora-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .calculadora {
+            background: #1e293b;
+            border-radius: 20px;
+            padding: 25px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            max-width: 350px;
+            width: 100%;
+        }
+        
+        #calcDisplay {
+            width: 100%;
+            padding: 20px;
+            font-size: 32px;
+            text-align: right;
+            border: none;
+            border-radius: 10px;
+            background: #0f172a;
+            color: white;
+            margin-bottom: 20px;
+            font-family: 'Segoe UI', sans-serif;
+            letter-spacing: 2px;
+        }
+        
+        .calc-fila {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 10px;
+            margin-bottom: 10px;
+        }
+        
+        .calc-btn {
+            padding: 18px;
+            font-size: 20px;
+            font-weight: 600;
+            border: none;
+            border-radius: 12px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            background: #334155;
+            color: white;
+        }
+        
+        .calc-btn:hover {
+            transform: scale(1.05);
+        }
+        
+        .calc-btn:active {
+            transform: scale(0.95);
+        }
+        
+        .calc-btn-numero {
+            background: #475569;
+        }
+        .calc-btn-numero:hover {
+            background: #64748b;
+        }
+        
+        .calc-btn-operador {
+            background: #f59e0b;
+            color: #0f172a;
+        }
+        .calc-btn-operador:hover {
+            background: #d97706;
+        }
+        
+        .calc-btn-igual {
+            background: #2563eb;
+            color: white;
+        }
+        .calc-btn-igual:hover {
+            background: #1d4ed8;
+        }
+        
+        .calc-btn-limpiar {
+            background: #dc2626;
+            color: white;
+        }
+        .calc-btn-limpiar:hover {
+            background: #b91c1c;
+        }
+        
+        .calc-btn-borrar {
+            background: #ef4444;
+            color: white;
+        }
+        .calc-btn-borrar:hover {
+            background: #dc2626;
+        }
+        
+        .calc-btn-cero {
+            grid-column: span 2;
+        }
+        
+        .calc-btn-porcentaje {
+            background: #8b5cf6;
+            color: white;
+        }
+        .calc-btn-porcentaje:hover {
+            background: #7c3aed;
+        }
+        
+        .calc-btn-usar {
+            background: #10b981;
+            color: white;
+        }
+        .calc-btn-usar:hover {
+            background: #059669;
+        }
+        
+        .historial-container {
+            background: white;
+            border-radius: 15px;
+            padding: 20px;
+            border: 1px solid #e2e8f0;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+            max-height: 500px;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .historial-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+            border-bottom: 1px solid #e2e8f0;
+            padding-bottom: 10px;
+        }
+        
+        .historial-header h3 {
+            color: #0f172a;
+            font-size: 1.1rem;
+            margin: 0;
+        }
+        
+        .historial-header button {
+            padding: 5px 15px;
+            font-size: 0.8rem;
+            background: #dc2626;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+        }
+        
+        .historial-header button:hover {
+            background: #b91c1c;
+        }
+        
+        .historial-lista-wrapper {
+            overflow-y: auto;
+            flex: 1;
+            max-height: 380px;
+        }
+        
+        #historialLista {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+        }
+        
+        #historialLista li {
+            display: flex;
+            justify-content: space-between;
+            padding: 10px 12px;
+            border-bottom: 1px solid #f1f5f9;
+            font-size: 14px;
+        }
+        
+        #historialLista li:hover {
+            background: #f8fafc;
+        }
+        
+        #historialLista li .operacion {
+            color: #334155;
+            font-size: 13px;
+        }
+        
+        #historialLista li .resultado {
+            font-weight: bold;
+            color: #2563eb;
+        }
+        
+        .historial-vacio {
+            text-align: center;
+            color: #94a3b8;
+            padding: 30px 0;
+        }
+        
+        .teclado-info {
+            font-size: 12px;
+            color: #94a3b8;
+            margin-top: 15px;
+            text-align: center;
+            border-top: 1px solid #e2e8f0;
+            padding-top: 15px;
+        }
+        
+        .teclado-info kbd {
+            background: #e2e8f0;
+            padding: 2px 8px;
+            border-radius: 4px;
+            font-size: 11px;
+            font-family: monospace;
+            color: #1e293b;
+        }
+        
+        @media (max-width: 768px) {
+            .calculadora-wrapper {
+                grid-template-columns: 1fr;
+            }
+        }
+        
+        @media (max-width: 400px) {
+            .calculadora {
+                padding: 15px;
+            }
+            .calc-btn {
+                padding: 14px;
+                font-size: 16px;
+            }
+        }
+    </style>
+    <script>
+        if (localStorage.getItem("sesionActiva") !== "true") {
+            window.location.href = "login.html";
+        }
+    </script>
+</head>
+<body>
+    <nav class="sidebar">
+        <h2>Adminístrate tu Kiosco</h2>
+        <a href="index.html">Inicio</a>
+        <a href="productos.html">Productos</a>
+        <a href="ventas.html">Ventas</a>
+        <a href="historial.html">Historial</a>
+        <a href="reportes.html">Reportes</a>
+        <a href="calculadora.html" class="active">Calculadora</a>
+        <a href="#" onclick="cerrarSesion()" style="margin-top: 30px; background: #dc2626; color: white;">Cerrar Sesion</a>
+    </nav>
+
+    <main class="contenido-principal">
+        <h1 class="titulo">Calculadora</h1>
+
+        <div class="calculadora-wrapper">
+            <!-- CALCULADORA -->
+            <div class="calculadora-container">
+                <div class="calculadora">
+                    <input type="text" id="calcDisplay" value="0" readonly>
+
+                    <div class="calc-fila">
+                        <button class="calc-btn calc-btn-limpiar" onclick="limpiarDisplay()">AC</button>
+                        <button class="calc-btn calc-btn-borrar" onclick="borrarUltimo()">⌫</button>
+                        <button class="calc-btn calc-btn-porcentaje" onclick="calcularPorcentaje()">%</button>
+                        <button class="calc-btn calc-btn-operador" onclick="agregarOperador('/')">÷</button>
+                    </div>
+
+                    <div class="calc-fila">
+                        <button class="calc-btn calc-btn-numero" onclick="agregarNumero('7')">7</button>
+                        <button class="calc-btn calc-btn-numero" onclick="agregarNumero('8')">8</button>
+                        <button class="calc-btn calc-btn-numero" onclick="agregarNumero('9')">9</button>
+                        <button class="calc-btn calc-btn-operador" onclick="agregarOperador('*')">×</button>
+                    </div>
+
+                    <div class="calc-fila">
+                        <button class="calc-btn calc-btn-numero" onclick="agregarNumero('4')">4</button>
+                        <button class="calc-btn calc-btn-numero" onclick="agregarNumero('5')">5</button>
+                        <button class="calc-btn calc-btn-numero" onclick="agregarNumero('6')">6</button>
+                        <button class="calc-btn calc-btn-operador" onclick="agregarOperador('-')">−</button>
+                    </div>
+
+                    <div class="calc-fila">
+                        <button class="calc-btn calc-btn-numero" onclick="agregarNumero('1')">1</button>
+                        <button class="calc-btn calc-btn-numero" onclick="agregarNumero('2')">2</button>
+                        <button class="calc-btn calc-btn-numero" onclick="agregarNumero('3')">3</button>
+                        <button class="calc-btn calc-btn-operador" onclick="agregarOperador('+')">+</button>
+                    </div>
+
+                    <div class="calc-fila">
+                        <button class="calc-btn calc-btn-numero calc-btn-cero" onclick="agregarNumero('0')">0</button>
+                        <button class="calc-btn calc-btn-numero" onclick="agregarNumero('.')">.</button>
+                        <button class="calc-btn calc-btn-usar" onclick="usarUltimoResultado()" title="Usar ultimo resultado">Ans</button>
+                        <button class="calc-btn calc-btn-igual" onclick="calcularResultado()">=</button>
+                    </div>
+
+                    <div class="teclado-info">
+                        Usa el teclado: <kbd>0-9</kbd> <kbd>+</kbd> <kbd>-</kbd> <kbd>*</kbd> <kbd>/</kbd> <kbd>Enter</kbd> <kbd>Backspace</kbd> <kbd>Esc</kbd>
+                    </div>
+                </div>
+            </div>
+
+            <!-- HISTORIAL -->
+            <div class="historial-container">
+                <div class="historial-header">
+                    <h3>Historial de Calculos</h3>
+                    <button onclick="limpiarHistorial()">Borrar todo</button>
+                </div>
+                <div class="historial-lista-wrapper">
+                    <ul id="historialLista">
+                        <li class="historial-vacio">No hay calculos realizados</li>
+                    </ul>
+                </div>
+                <!-- El boton de exportar se agrega desde JS -->
+            </div>
+        </div>
+    </main>
+
+    <script src="js/utils.js"></script>
+    <script src="js/calculadora.js"></script>
+</body>
+</html>

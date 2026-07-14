@@ -1,111 +1,77 @@
 <!DOCTYPE html>
 <html lang="es">
-
 <head>
-
     <meta charset="UTF-8">
-
     <title>Productos - Adminístrate tu Kiosco</title>
-
-    <link
-        rel="stylesheet"
-        href="css/estilos.css">
-
+    <link rel="stylesheet" href="css/estilos.css">
     <script>
-    if (localStorage.getItem("sesionActiva") !== "true") {
-        window.location.href = "login.html";
-    }
+        if (localStorage.getItem("sesionActiva") !== "true") {
+            window.location.href = "login.html";
+        }
     </script>
-
 </head>
-
 <body>
+    <nav class="sidebar">
+        <h2>Adminístrate tu Kiosco</h2>
+        <a href="index.html">Inicio</a>
+        <a href="productos.html" class="active">Productos</a>
+        <a href="ventas.html">Ventas</a>
+        <a href="historial.html">Historial</a>
+        <a href="reportes.html">Reportes</a>
+        <a href="calculadora.html">Calculadora</a>
+        <a href="#" onclick="cerrarSesion()" style="margin-top: 30px; background: #dc2626; color: white;">Cerrar Sesion</a>
+    </nav>
 
-<nav class="sidebar">
+    <main class="contenido-principal">
+        <h1 class="titulo">Gestion de Productos</h1>
 
-    <h2>Adminístrate tu Kiosco</h2>
-
-    <a href="index.html">Inicio</a>
-
-    <a href="productos.html">Productos</a>
-
-    <a href="ventas.html">Ventas</a>
-
-    <a href="historial.html">Historial</a>
-
-    <a href="#" onclick="cerrarSesion()" style="margin-top: 30px; background: #dc2626; color: white;">Cerrar Sesión</a>
-
-    <script>
-    function cerrarSesion() {
-        localStorage.removeItem("sesionActiva");
-        localStorage.removeItem("nombreUsuario");
-        window.location.href = "login.html";
-    }
-    </script>
-</nav>
-
-<main class="contenido-principal">
-
-    <h1 class="titulo">
-        Gestión de Productos
-    </h1>
-
-    <div class="card">
-
-        <div class="formulario">
-
-            <input
-                type="text"
-                id="nombre"
-                placeholder="Nombre del producto">
-
-            <input
-                type="number"
-                id="precio"
-                placeholder="Precio">
-
-            <input
-                type="number"
-                id="stock"
-                placeholder="Stock">
-
-            <button onclick="agregarProducto()">
-                Agregar
-            </button>
-
+        <div class="card">
+            <div class="formulario">
+                <input type="text" id="nombre" placeholder="Nombre del producto">
+                <select id="categoria">
+                    <!-- Las categorias se cargan desde JS -->
+                </select>
+                <input type="number" id="precio" placeholder="Precio" step="0.01">
+                <input type="number" id="stock" placeholder="Stock">
+                <input type="number" id="stockMinimo" placeholder="Stock minimo" value="5">
+                <button onclick="agregarProducto()">Agregar</button>
+            </div>
         </div>
 
-    </div>
+        <br>
 
-    <br>
+        <!-- BUSCADOR DE PRODUCTOS -->
+        <div class="card" style="padding: 15px;">
+            <div style="display: flex; gap: 10px; align-items: center; flex-wrap: wrap;">
+                <input type="text" id="buscadorProductos" placeholder="Buscar producto por nombre..." style="flex: 2; min-width: 200px;">
+                <select id="filtroCategoria" style="flex: 1; min-width: 150px;">
+                    <option value="">Todas las categorias</option>
+                </select>
+                <button onclick="buscarProductos()" style="background: #2563eb;">Buscar</button>
+                <button onclick="limpiarBusqueda()" style="background: #64748b;">Limpiar</button>
+            </div>
+            <div style="margin-top: 8px; font-size: 14px; color: #64748b;">
+                <span id="contadorProductos">Mostrando 0 productos</span>
+            </div>
+        </div>
 
-    <table>
+        <br>
 
-        <thead>
+        <table>
+            <thead>
+                <tr>
+                    <th>Producto</th>
+                    <th>Categoria</th>
+                    <th>Precio</th>
+                    <th>Stock</th>
+                    <th>Acciones</th>
+                </tr>
+            </thead>
+            <tbody id="tablaProductos"></tbody>
+        </table>
+    </main>
 
-            <tr>
-
-                <th>Producto</th>
-
-                <th>Precio</th>
-
-                <th>Stock</th>
-
-                <th>Acciones</th>
-
-            </tr>
-
-        </thead>
-
-        <tbody id="tablaProductos">
-
-        </tbody>
-
-    </table>
-
-</main>
-
-<script src="js/productos.js"></script>
-
+    <script src="js/utils.js"></script>
+    <script src="js/productos.js"></script>
 </body>
 </html>
