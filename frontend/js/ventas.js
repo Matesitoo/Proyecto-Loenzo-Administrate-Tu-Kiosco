@@ -196,6 +196,35 @@ function actualizarCarrito() {
         '<strong>Total: ' + formatearMoneda(total) + '</strong>';
 }
 
+// ============================================
+// FUNCION PARA FORMATEAR FECHA CON AM/PM
+// ============================================
+
+function formatearFechaConAMPM(fecha) {
+    var dia = fecha.getDate();
+    var mes = fecha.getMonth() + 1;
+    var anio = fecha.getFullYear();
+    
+    var horas = fecha.getHours();
+    var minutos = fecha.getMinutes();
+    var segundos = fecha.getSeconds();
+    
+    // Determinar AM/PM
+    var ampm = horas >= 12 ? 'PM' : 'AM';
+    
+    // Convertir a formato 12 horas
+    var horas12 = horas % 12;
+    if (horas12 === 0) {
+        horas12 = 12;
+    }
+    
+    // Agregar cero a la izquierda si es necesario
+    var minutosStr = minutos < 10 ? '0' + minutos : minutos;
+    var segundosStr = segundos < 10 ? '0' + segundos : segundos;
+    
+    return dia + '/' + mes + '/' + anio + ', ' + horas12 + ':' + minutosStr + ':' + segundosStr + ' ' + ampm;
+}
+
 function finalizarVenta() {
     if (carrito.length === 0) {
         mostrarToast('No hay productos en el carrito', 'error');
@@ -243,9 +272,13 @@ function finalizarVenta() {
         });
     }
     
+    // Obtener fecha con formato AM/PM
+    var ahora = new Date();
+    var fechaFormateada = formatearFechaConAMPM(ahora);
+    
     var venta = {
         id: generarId(),
-        fecha: new Date().toLocaleString(),
+        fecha: fechaFormateada,
         productos: productosVenta,
         total: total,
         metodo_pago: metodoPago,

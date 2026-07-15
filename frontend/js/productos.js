@@ -5,6 +5,49 @@ var productosFiltrados = [];
 var filtroTexto = '';
 var filtroCategoria = '';
 
+// ============================================
+// LISTA DE CATEGORIAS (CENTRALIZADA)
+// ============================================
+
+var CATEGORIAS_DISPONIBLES = [
+    'General',
+    'Bebidas',
+    'Bebidas alcoholicas',
+    'Aguas saborizadas',
+    'Aguas con gas',
+    'Bebidas energéticas',
+    'Gaseosas',
+    'Jugos',
+    'Cervezas',
+    'Vinos',
+    'Licores',
+    'Snacks',
+    'Golosinas',
+    'Chocolates',
+    'Galletitas',
+    'Comestibles',
+    'Enlatados',
+    'Pastas',
+    'Arroz y legumbres',
+    'Conservas',
+    'Dulces y mermeladas',
+    'Cereales y barras',
+    'Higiene',
+    'Cuidado personal',
+    'Limpieza',
+    'Farmacia',
+    'Lacteos',
+    'Fiambres',
+    'Panificados',
+    'Congelados',
+    'Cigarrillos',
+    'Tabaco',
+    'Electrónicos (pilas, cargadores)',
+    'Juguetes',
+    'Revistas y libros',
+    'Otros'
+];
+
 document.addEventListener('DOMContentLoaded', function() {
     cargarCategorias();
     cargarFiltroCategorias();
@@ -60,6 +103,8 @@ function agregarProducto() {
         }
         mostrarProductosFiltrados();
     }
+    // Actualizar filtro de categorías
+    cargarFiltroCategorias();
     mostrarToast('Producto agregado correctamente', 'success');
 }
 
@@ -90,6 +135,7 @@ function eliminarProducto(id) {
             }
             mostrarProductosFiltrados();
         }
+        cargarFiltroCategorias();
         mostrarToast('Producto eliminado', 'warning');
     });
 }
@@ -128,6 +174,7 @@ function editarProducto(id) {
             }
             mostrarProductosFiltrados();
         }
+        cargarFiltroCategorias();
         mostrarToast('Producto actualizado', 'info');
     });
 }
@@ -211,10 +258,10 @@ function mostrarProductosFiltrados() {
     
     if (productosFiltrados.length === 0) {
         if (productos.length === 0) {
-            tabla.innerHTML = '<tr><td colspan="5" style="text-align:center; padding:30px; color:#94a3b8;">No hay productos registrados</td></tr>';
+            tabla.innerHTML = '<tr><td colspan="6" style="text-align:center; padding:30px; color:#94a3b8;">No hay productos registrados</td></tr>';
             if (contador) contador.innerText = 'Mostrando 0 productos';
         } else {
-            tabla.innerHTML = '<tr><td colspan="5" style="text-align:center; padding:30px; color:#94a3b8;">No se encontraron productos con esos filtros</td></tr>';
+            tabla.innerHTML = '<tr><td colspan="6" style="text-align:center; padding:30px; color:#94a3b8;">No se encontraron productos con esos filtros</td></tr>';
             if (contador) contador.innerText = 'Mostrando 0 productos (de ' + productos.length + ' totales)';
         }
         return;
@@ -222,15 +269,30 @@ function mostrarProductosFiltrados() {
     
     for (var i = 0; i < productosFiltrados.length; i++) {
         var producto = productosFiltrados[i];
-        var stockBajo = producto.stock <= (producto.stock_minimo || 5);
-        var colorStock = stockBajo ? '#dc2626' : '#16a34a';
-        var indicadorStock = stockBajo ? ' ⚠️' : ' ✅';
+        
+        var estado = '';
+        var colorEstado = '';
+        var emoji = '';
+        if (producto.stock === 0) {
+            estado = 'Sin stock';
+            colorEstado = '#dc2626';
+            emoji = '🚫';
+        } else if (producto.stock <= (producto.stock_minimo || 5)) {
+            estado = 'Poco stock';
+            colorEstado = '#f59e0b';
+            emoji = '⚠️';
+        } else {
+            estado = 'Hay stock';
+            colorEstado = '#16a34a';
+            emoji = '✅';
+        }
         
         html += '<tr>';
         html += '<td>' + producto.nombre + '</td>';
         html += '<td>' + (producto.categoria || 'General') + '</td>';
         html += '<td>' + formatearMoneda(producto.precio) + '</td>';
-        html += '<td style="color: ' + colorStock + '; font-weight:bold;">' + producto.stock + indicadorStock + '</td>';
+        html += '<td>' + producto.stock + '</td>';
+        html += '<td style="color: ' + colorEstado + '; font-weight:bold;">' + emoji + ' ' + estado + '</td>';
         html += '<td>';
         html += '<button class="btn-editar" onclick="editarProducto(\'' + producto.id + '\')">Editar</button>';
         html += '<button class="btn-eliminar" onclick="eliminarProducto(\'' + producto.id + '\')">Eliminar</button>';
@@ -249,7 +311,7 @@ function mostrarProductosFiltrados() {
 }
 
 // ============================================
-// CARGAR CATEGORIAS
+// CARGAR CATEGORIAS (CON LA LISTA CENTRALIZADA)
 // ============================================
 
 function cargarCategorias() {
@@ -258,19 +320,10 @@ function cargarCategorias() {
     
     select.innerHTML = '';
     
-    var categorias = [
-        'General', 'Bebidas', 'Bebidas alcoholicas', 'Aguas saborizadas',
-        'Gaseosas', 'Jugos', 'Snacks', 'Golosinas', 'Chocolates',
-        'Galletitas', 'Comestibles', 'Enlatados', 'Pastas',
-        'Arroz y legumbres', 'Higiene', 'Cuidado personal',
-        'Limpieza', 'Farmacia', 'Lacteos', 'Fiambres',
-        'Panificados', 'Congelados', 'Otros'
-    ];
-    
-    for (var i = 0; i < categorias.length; i++) {
+    for (var i = 0; i < CATEGORIAS_DISPONIBLES.length; i++) {
         var option = document.createElement('option');
-        option.value = categorias[i];
-        option.textContent = categorias[i];
+        option.value = CATEGORIAS_DISPONIBLES[i];
+        option.textContent = CATEGORIAS_DISPONIBLES[i];
         select.appendChild(option);
     }
 }
@@ -350,19 +403,11 @@ function mostrarModalEdicion(producto, callback) {
     var modal = document.createElement('div');
     modal.style.cssText = 'background:white; border-radius:15px; padding:30px; max-width:450px; width:90%; box-shadow:0 20px 60px rgba(0,0,0,0.3);';
     
-    var categorias = [
-        'General', 'Bebidas', 'Bebidas alcoholicas', 'Aguas saborizadas',
-        'Gaseosas', 'Jugos', 'Snacks', 'Golosinas', 'Chocolates',
-        'Galletitas', 'Comestibles', 'Enlatados', 'Pastas',
-        'Arroz y legumbres', 'Higiene', 'Cuidado personal',
-        'Limpieza', 'Farmacia', 'Lacteos', 'Fiambres',
-        'Panificados', 'Congelados', 'Otros'
-    ];
-    
+    // Usar la lista global de categorias
     var optionsHtml = '';
-    for (var i = 0; i < categorias.length; i++) {
-        var selected = (categorias[i] === producto.categoria) ? 'selected' : '';
-        optionsHtml += '<option value="' + categorias[i] + '" ' + selected + '>' + categorias[i] + '</option>';
+    for (var i = 0; i < CATEGORIAS_DISPONIBLES.length; i++) {
+        var selected = (CATEGORIAS_DISPONIBLES[i] === producto.categoria) ? 'selected' : '';
+        optionsHtml += '<option value="' + CATEGORIAS_DISPONIBLES[i] + '" ' + selected + '>' + CATEGORIAS_DISPONIBLES[i] + '</option>';
     }
     
     modal.innerHTML = `

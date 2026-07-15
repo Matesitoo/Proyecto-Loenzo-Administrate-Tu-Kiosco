@@ -8,53 +8,60 @@
     <style>
         .calculadora-wrapper {
             display: grid;
-            grid-template-columns: 1fr 300px;
+            grid-template-columns: 1fr 350px;
             gap: 30px;
-            align-items: start;
+            align-items: stretch;
+            flex: 1;
+            min-height: 70vh;
         }
         
         .calculadora-container {
             display: flex;
-            justify-content: center;
-            align-items: center;
+            align-items: stretch;
         }
         
         .calculadora {
             background: #1e293b;
             border-radius: 20px;
-            padding: 25px;
+            padding: 30px;
             box-shadow: 0 20px 60px rgba(0,0,0,0.3);
-            max-width: 350px;
             width: 100%;
+            display: flex;
+            flex-direction: column;
         }
         
         #calcDisplay {
             width: 100%;
-            padding: 20px;
-            font-size: 32px;
+            padding: 25px 30px;
+            font-size: 42px;
             text-align: right;
             border: none;
-            border-radius: 10px;
+            border-radius: 12px;
             background: #0f172a;
             color: white;
-            margin-bottom: 20px;
+            margin-bottom: 25px;
             font-family: 'Segoe UI', sans-serif;
             letter-spacing: 2px;
+            min-height: 80px;
         }
         
         .calc-fila {
             display: grid;
             grid-template-columns: repeat(4, 1fr);
-            gap: 10px;
-            margin-bottom: 10px;
+            gap: 12px;
+            margin-bottom: 12px;
+        }
+        
+        .calc-fila:last-child {
+            margin-bottom: 0;
         }
         
         .calc-btn {
-            padding: 18px;
-            font-size: 20px;
+            padding: 22px;
+            font-size: 24px;
             font-weight: 600;
             border: none;
-            border-radius: 12px;
+            border-radius: 14px;
             cursor: pointer;
             transition: all 0.2s ease;
             background: #334155;
@@ -130,13 +137,14 @@
         
         .historial-container {
             background: white;
-            border-radius: 15px;
-            padding: 20px;
+            border-radius: 20px;
+            padding: 25px;
             border: 1px solid #e2e8f0;
             box-shadow: 0 4px 15px rgba(0,0,0,0.05);
-            max-height: 500px;
             display: flex;
             flex-direction: column;
+            min-height: 400px;
+            max-height: 600px;
         }
         
         .historial-header {
@@ -144,24 +152,28 @@
             justify-content: space-between;
             align-items: center;
             margin-bottom: 15px;
-            border-bottom: 1px solid #e2e8f0;
-            padding-bottom: 10px;
+            border-bottom: 2px solid #e2e8f0;
+            padding-bottom: 12px;
+            flex-shrink: 0;
         }
         
         .historial-header h3 {
             color: #0f172a;
-            font-size: 1.1rem;
+            font-size: 1.2rem;
             margin: 0;
+            font-weight: 700;
         }
         
         .historial-header button {
-            padding: 5px 15px;
+            padding: 6px 16px;
             font-size: 0.8rem;
             background: #dc2626;
             color: white;
             border: none;
-            border-radius: 6px;
+            border-radius: 8px;
             cursor: pointer;
+            font-weight: 500;
+            transition: all 0.2s ease;
         }
         
         .historial-header button:hover {
@@ -171,7 +183,20 @@
         .historial-lista-wrapper {
             overflow-y: auto;
             flex: 1;
-            max-height: 380px;
+        }
+        
+        .historial-lista-wrapper::-webkit-scrollbar {
+            width: 6px;
+        }
+        
+        .historial-lista-wrapper::-webkit-scrollbar-track {
+            background: #f1f5f9;
+            border-radius: 10px;
+        }
+        
+        .historial-lista-wrapper::-webkit-scrollbar-thumb {
+            background: #cbd5e1;
+            border-radius: 10px;
         }
         
         #historialLista {
@@ -183,9 +208,12 @@
         #historialLista li {
             display: flex;
             justify-content: space-between;
-            padding: 10px 12px;
+            align-items: center;
+            padding: 12px 14px;
             border-bottom: 1px solid #f1f5f9;
             font-size: 14px;
+            border-radius: 8px;
+            transition: background 0.2s ease;
         }
         
         #historialLista li:hover {
@@ -194,51 +222,93 @@
         
         #historialLista li .operacion {
             color: #334155;
-            font-size: 13px;
+            font-size: 14px;
+            font-weight: 500;
         }
         
         #historialLista li .resultado {
-            font-weight: bold;
+            font-weight: 700;
             color: #2563eb;
+            font-size: 16px;
         }
         
         .historial-vacio {
             text-align: center;
             color: #94a3b8;
-            padding: 30px 0;
+            padding: 40px 0;
+            font-size: 15px;
         }
         
         .teclado-info {
-            font-size: 12px;
+            font-size: 13px;
             color: #94a3b8;
-            margin-top: 15px;
+            margin-top: 20px;
             text-align: center;
-            border-top: 1px solid #e2e8f0;
-            padding-top: 15px;
+            border-top: 1px solid #334155;
+            padding-top: 18px;
+            flex-shrink: 0;
         }
         
         .teclado-info kbd {
-            background: #e2e8f0;
-            padding: 2px 8px;
-            border-radius: 4px;
-            font-size: 11px;
+            background: #2d3748;
+            padding: 3px 10px;
+            border-radius: 6px;
+            font-size: 12px;
             font-family: monospace;
-            color: #1e293b;
+            color: #e2e8f0;
+            border: 1px solid #4a5568;
         }
         
-        @media (max-width: 768px) {
+        .historial-footer {
+            flex-shrink: 0;
+            margin-top: 15px;
+            padding-top: 15px;
+            border-top: 1px solid #e2e8f0;
+        }
+        
+        .btn-exportar-historial {
+            width: 100%;
+            padding: 10px;
+            background: #10b981;
+            color: white;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 14px;
+            transition: all 0.2s ease;
+        }
+        
+        .btn-exportar-historial:hover {
+            background: #059669;
+        }
+        
+        @media (max-width: 900px) {
             .calculadora-wrapper {
                 grid-template-columns: 1fr;
+                gap: 20px;
+            }
+            .historial-container {
+                max-height: 350px;
+                min-height: 250px;
             }
         }
         
-        @media (max-width: 400px) {
+        @media (max-width: 500px) {
             .calculadora {
-                padding: 15px;
+                padding: 18px;
             }
             .calc-btn {
-                padding: 14px;
-                font-size: 16px;
+                padding: 16px;
+                font-size: 18px;
+            }
+            #calcDisplay {
+                font-size: 30px;
+                padding: 18px 20px;
+                min-height: 60px;
+            }
+            .calculadora-wrapper {
+                gap: 15px;
             }
         }
     </style>
@@ -256,6 +326,9 @@
         <a href="ventas.html">Ventas</a>
         <a href="historial.html">Historial</a>
         <a href="reportes.html">Reportes</a>
+        <a href="proveedores.html">Proveedores</a>
+        <a href="pedidos.html">Pedidos</a>
+        <a href="caja.html">Caja</a>
         <a href="calculadora.html" class="active">Calculadora</a>
         <a href="#" onclick="cerrarSesion()" style="margin-top: 30px; background: #dc2626; color: white;">Cerrar Sesion</a>
     </nav>
@@ -264,7 +337,6 @@
         <h1 class="titulo">Calculadora</h1>
 
         <div class="calculadora-wrapper">
-            <!-- CALCULADORA -->
             <div class="calculadora-container">
                 <div class="calculadora">
                     <input type="text" id="calcDisplay" value="0" readonly>
@@ -310,7 +382,6 @@
                 </div>
             </div>
 
-            <!-- HISTORIAL -->
             <div class="historial-container">
                 <div class="historial-header">
                     <h3>Historial de Calculos</h3>
@@ -321,7 +392,9 @@
                         <li class="historial-vacio">No hay calculos realizados</li>
                     </ul>
                 </div>
-                <!-- El boton de exportar se agrega desde JS -->
+                <div class="historial-footer">
+                    <button class="btn-exportar-historial" onclick="exportarHistorial()">Exportar Historial a Excel</button>
+                </div>
             </div>
         </div>
     </main>

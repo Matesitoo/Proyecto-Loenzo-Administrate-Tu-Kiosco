@@ -12,7 +12,6 @@ document.addEventListener('DOMContentLoaded', function() {
     mostrarHistorial();
     configurarTeclado();
     actualizarDisplay();
-    agregarBotonExportarHistorial();
 });
 
 function actualizarDisplay() {
@@ -168,16 +167,16 @@ function mostrarHistorial() {
     if (!lista) return;
     
     if (historial.length === 0) {
-        lista.innerHTML = '<li style="text-align:center; color:#94a3b8; padding:20px;">No hay calculos realizados</li>';
+        lista.innerHTML = '<li class="historial-vacio">No hay calculos realizados</li>';
         return;
     }
     
     var html = '';
     for (var i = 0; i < historial.length; i++) {
         var item = historial[i];
-        html += '<li style="display:flex; justify-content:space-between; padding:8px 12px; border-bottom:1px solid #e2e8f0; font-size:14px;">';
-        html += '<span style="color:#334155;">' + item.operacion + '</span>';
-        html += '<span style="font-weight:bold; color:#2563eb;">' + item.resultado + '</span>';
+        html += '<li>';
+        html += '<span class="operacion">' + item.operacion + '</span>';
+        html += '<span class="resultado">' + item.resultado + '</span>';
         html += '</li>';
     }
     lista.innerHTML = html;
@@ -203,53 +202,37 @@ function usarUltimoResultado() {
 }
 
 // ============================================
-// BOTON EXPORTAR HISTORIAL
+// EXPORTAR HISTORIAL (llamado desde el HTML)
 // ============================================
 
-function agregarBotonExportarHistorial() {
-    var contenedor = document.querySelector('.historial-container');
-    if (!contenedor) return;
+function exportarHistorial() {
+    if (historial.length === 0) {
+        mostrarToast('No hay calculos para exportar', 'error');
+        return;
+    }
     
-    var botonExistente = document.getElementById('btnExportarHistorialCalc');
-    if (botonExistente) return;
+    var fechaActual = new Date().toISOString().split('T')[0];
+    var csvContent = '\uFEFF';
+    csvContent += '=== HISTORIAL DE CALCULOS ===\n';
+    csvContent += 'Fecha;Operacion;Resultado\n';
     
-    var boton = document.createElement('button');
-    boton.id = 'btnExportarHistorialCalc';
-    boton.innerText = 'Exportar Historial a Excel';
-    boton.style.cssText = 'margin-top: 10px; padding: 8px 15px; background: #10b981; color: white; border: none; border-radius: 6px; cursor: pointer; font-weight: bold; font-size: 13px; width: 100%;';
+    for (var i = 0; i < historial.length; i++) {
+        var item = historial[i];
+        csvContent += item.fecha + ';' + item.operacion + ';' + item.resultado + '\n';
+    }
     
-    boton.onclick = function() {
-        if (historial.length === 0) {
-            mostrarToast('No hay calculos para exportar', 'error');
-            return;
-        }
-        
-        var fechaActual = new Date().toISOString().split('T')[0];
-        var csvContent = '\uFEFF';
-        csvContent += '=== HISTORIAL DE CALCULOS ===\n';
-        csvContent += 'Fecha;Operacion;Resultado\n';
-        
-        for (var i = 0; i < historial.length; i++) {
-            var item = historial[i];
-            csvContent += item.fecha + ';' + item.operacion + ';' + item.resultado + '\n';
-        }
-        
-        // Agregar resumen
-        var totalCalculos = historial.length;
-        csvContent += '\n=== RESUMEN ===\n';
-        csvContent += 'Total de calculos;' + totalCalculos + '\n';
-        
-        var blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
-        var link = document.createElement('a');
-        link.href = URL.createObjectURL(blob);
-        link.setAttribute('download', 'historial_calculadora_' + fechaActual + '.csv');
-        document.body.appendChild(link);
-        link.click();
-        document.body.removeChild(link);
-        mostrarToast('Historial exportado correctamente', 'success');
-    };
+    var totalCalculos = historial.length;
+    csvContent += '\n=== RESUMEN ===\n';
+    csvContent += 'Total de calculos;' + totalCalculos + '\n';
     
-    contenedor.appendChild(boton);
+    var blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
+    var link = document.createElement('a');
+    link.href = URL.createObjectURL(blob);
+    link.setAttribute('download', 'historial_calculadora_' + fechaActual + '.csv');
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+    mostrarToast('Historial exportado correctamente', 'success');
 }
 
 // ============================================

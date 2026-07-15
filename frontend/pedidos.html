@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Pedidos - Adminístrate tu Kiosco</title>
+    <link rel="stylesheet" href="css/estilos.css">
+    <script>
+        if (localStorage.getItem("sesionActiva") !== "true") {
+            window.location.href = "login.html";
+        }
+    </script>
+</head>
+<body>
+    <nav class="sidebar">
+        <h2>Adminístrate tu Kiosco</h2>
+        <a href="index.html">Inicio</a>
+        <a href="productos.html">Productos</a>
+        <a href="ventas.html">Ventas</a>
+        <a href="historial.html">Historial</a>
+        <a href="reportes.html">Reportes</a>
+        <a href="proveedores.html">Proveedores</a>
+        <a href="pedidos.html" class="active">Pedidos</a>
+        <a href="caja.html">Caja</a>
+        <a href="calculadora.html">Calculadora</a>
+        <a href="#" onclick="cerrarSesion()" style="margin-top: 30px; background: #dc2626; color: white;">Cerrar Sesion</a>
+    </nav>
+
+    <main class="contenido-principal">
+        <h1 class="titulo">Registro de Pedidos</h1>
+
+        <div class="card">
+            <h2>Nuevo Pedido</h2>
+            <div style="display:grid; grid-template-columns: 1fr 1fr; gap:15px; margin-top:15px;">
+                <select id="compraProveedor">
+                    <option value="">Seleccione un proveedor</option>
+                </select>
+
+                <!-- BUSCADOR DE PRODUCTOS -->
+                <div style="position:relative;">
+                    <input type="text" id="buscarProducto" placeholder="Buscar producto..." style="width:100%;">
+                    <div id="resultadosProductos" style="position:absolute; top:100%; left:0; right:0; background:white; border:1px solid #e2e8f0; border-radius:8px; box-shadow:0 10px 25px rgba(0,0,0,0.1); max-height:200px; overflow-y:auto; z-index:1000; display:none; margin-top:4px;"></div>
+                    <div id="productoSeleccionadoInfo" style="display:none; margin-top:8px; padding:8px 12px; background:#f8fafc; border-radius:8px; border-left:4px solid #4f46e5;">
+                        <span style="font-weight:500;">Producto seleccionado:</span>
+                        <span id="nombreProductoSeleccionado" style="font-weight:600; color:#1e293b;"></span>
+                        <span style="color:#64748b; margin-left:12px;">Stock: <span id="stockProductoSeleccionado" style="font-weight:600;"></span></span>
+                    </div>
+                </div>
+
+                <input type="number" id="compraCantidad" placeholder="Cantidad (unidades)">
+                <!-- ELIMINADOS los inputs de precio -->
+            </div>
+            <div style="font-size:12px; color:#94a3b8; margin-top:5px;">
+                💡 Seleccione un producto, ingrese la cantidad y haga clic en "Agregar Producto".
+            </div>
+            <button onclick="agregarProductoACompra()" style="margin-top:15px;">Agregar Producto</button>
+
+            <div style="margin-top:20px;">
+                <h3>Productos agregados</h3>
+                <ul id="listaCompraItems" style="list-style:none; padding:0;"></ul>
+                <div style="text-align:right; font-size:20px; font-weight:bold; margin-top:10px;">
+                    Subtotal: <span id="compraSubtotal">$0</span>
+                </div>
+                
+                <!-- NUEVO: Campo para el monto total a pagar -->
+                <div style="display:flex; gap:15px; align-items:center; justify-content:flex-end; margin-top:15px; flex-wrap:wrap;">
+                    <div style="display:flex; align-items:center; gap:10px;">
+                        <label for="montoTotalPagar" style="font-weight:600; color:#1e293b;">Monto total a pagar:</label>
+                        <input type="number" id="montoTotalPagar" placeholder="Ingrese el total" step="0.01" style="width:200px; padding:10px; border:2px solid #e2e8f0; border-radius:8px; font-size:1rem;">
+                    </div>
+                    <button onclick="finalizarCompra()" style="background:#10b981; padding:12px 30px;">Finalizar Pedido</button>
+                </div>
+                <div style="font-size:12px; color:#94a3b8; margin-top:4px; text-align:right;">
+                    El monto total a pagar puede ser mayor o menor al subtotal (incluye descuentos, fletes, etc.)
+                </div>
+            </div>
+        </div>
+
+        <br>
+
+        <h2>Historial de Pedidos</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>Fecha</th>
+                    <th>Proveedor</th>
+                    <th>Productos</th>
+                    <th>Total</th>
+                    <th>Estado</th>
+                    <th>Acciones</th>
+                </tr>
+            </thead>
+            <tbody id="tablaCompras"></tbody>
+        </table>
+    </main>
+
+    <script src="js/utils.js"></script>
+    <script src="js/compras.js"></script>
+</body>
+</html>

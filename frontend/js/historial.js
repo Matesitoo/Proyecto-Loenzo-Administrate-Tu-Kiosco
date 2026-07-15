@@ -16,9 +16,21 @@ function mostrarHistorial(fechaInicio, fechaFin) {
         ventasFiltradas = [];
         for (var i = 0; i < ventas.length; i++) {
             var venta = ventas[i];
-            var fechaVenta = new Date(venta.fecha);
-            if (fechaInicio && fechaVenta < new Date(fechaInicio)) continue;
-            if (fechaFin && fechaVenta > new Date(fechaFin + 'T23:59:59')) continue;
+            // Extraer solo la fecha (DD/MM/YYYY)
+            var fechaVentaStr = venta.fecha.split(',')[0];
+            var partes = fechaVentaStr.split('/');
+            var fechaVenta = new Date(partes[2], partes[1] - 1, partes[0]);
+            
+            if (fechaInicio) {
+                var partesInicio = fechaInicio.split('-');
+                var fechaInicioObj = new Date(partesInicio[0], partesInicio[1] - 1, partesInicio[2]);
+                if (fechaVenta < fechaInicioObj) continue;
+            }
+            if (fechaFin) {
+                var partesFin = fechaFin.split('-');
+                var fechaFinObj = new Date(partesFin[0], partesFin[1] - 1, partesFin[2]);
+                if (fechaVenta > fechaFinObj) continue;
+            }
             ventasFiltradas.push(venta);
         }
     }

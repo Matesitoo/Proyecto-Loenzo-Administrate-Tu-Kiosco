@@ -5,6 +5,168 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Adminístrate tu Kiosco</title>
     <link rel="stylesheet" href="css/estilos.css">
+    <style>
+        .dashboard-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            width: 100%;
+        }
+        
+        .card-stock-bajo {
+            background: #fef3c7;
+            border: 2px solid #f59e0b;
+        }
+        
+        .card-stock-bajo h3 {
+            color: #92400e;
+        }
+        
+        .card-stock-bajo p {
+            color: #d97706;
+        }
+        
+        .card-sin-stock {
+            background: #fee2e2;
+            border: 2px solid #dc2626;
+        }
+        
+        .card-sin-stock h3 {
+            color: #991b1b;
+        }
+        
+        .card-sin-stock p {
+            color: #dc2626;
+        }
+        
+        .card-stock-bajo .stock-alerta,
+        .card-sin-stock .stock-alerta {
+            font-size: 14px;
+            font-weight: 500;
+            margin-top: 5px;
+        }
+        
+        .card-stock-bajo .stock-alerta {
+            color: #92400e;
+        }
+        
+        .card-sin-stock .stock-alerta {
+            color: #991b1b;
+        }
+        
+        .detalle-stock-bajo {
+            background: white;
+            border-radius: 15px;
+            padding: 20px;
+            border: 1px solid #e2e8f0;
+            margin-top: 20px;
+        }
+        
+        .detalle-stock-bajo h3 {
+            color: #d97706;
+            font-size: 1rem;
+            margin-bottom: 15px;
+        }
+        
+        .detalle-stock-bajo ul {
+            list-style: none;
+            padding: 0;
+        }
+        
+        .detalle-stock-bajo li {
+            display: flex;
+            justify-content: space-between;
+            padding: 10px 15px;
+            background: #fef3c7;
+            border-radius: 8px;
+            margin-bottom: 8px;
+            border-left: 4px solid #f59e0b;
+        }
+        
+        .detalle-stock-bajo li .nombre {
+            font-weight: 500;
+            color: #1e293b;
+        }
+        
+        .detalle-stock-bajo li .stock {
+            color: #d97706;
+            font-weight: 700;
+        }
+        
+        .detalle-sin-stock {
+            background: white;
+            border-radius: 15px;
+            padding: 20px;
+            border: 1px solid #e2e8f0;
+            margin-top: 10px;
+        }
+        
+        .detalle-sin-stock h3 {
+            color: #dc2626;
+            font-size: 1rem;
+            margin-bottom: 15px;
+        }
+        
+        .detalle-sin-stock ul {
+            list-style: none;
+            padding: 0;
+        }
+        
+        .detalle-sin-stock li {
+            display: flex;
+            justify-content: space-between;
+            padding: 10px 15px;
+            background: #fee2e2;
+            border-radius: 8px;
+            margin-bottom: 8px;
+            border-left: 4px solid #dc2626;
+        }
+        
+        .detalle-sin-stock li .nombre {
+            font-weight: 500;
+            color: #1e293b;
+        }
+        
+        .detalle-sin-stock li .stock {
+            color: #dc2626;
+            font-weight: 700;
+        }
+        
+        .sin-stock-vacio {
+            color: #64748b;
+            font-size: 14px;
+            padding: 10px 0;
+        }
+        
+        .info-extra {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 15px;
+            margin-top: 20px;
+        }
+        
+        .info-extra .card {
+            padding: 15px 20px;
+        }
+        
+        .info-extra .card h4 {
+            color: #64748b;
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 5px;
+        }
+        
+        .info-extra .card .valor {
+            font-size: 18px;
+            font-weight: 700;
+            color: #0f172a;
+        }
+        
+        .info-extra .card .valor-destacado {
+            color: #2563eb;
+        }
+    </style>
     <script>
         if (localStorage.getItem("sesionActiva") !== "true") {
             window.location.href = "login.html";
@@ -19,6 +181,9 @@
         <a href="ventas.html">Ventas</a>
         <a href="historial.html">Historial</a>
         <a href="reportes.html">Reportes</a>
+        <a href="proveedores.html">Proveedores</a>
+        <a href="pedidos.html">Pedidos</a>
+        <a href="caja.html">Caja</a>
         <a href="calculadora.html">Calculadora</a>
         <a href="#" onclick="cerrarSesion()" style="margin-top: 30px; background: #dc2626; color: white;">Cerrar Sesion</a>
     </nav>
@@ -27,7 +192,7 @@
         <h1 class="titulo">Panel de Control</h1>
         <p id="nombreUsuario" style="color: #64748b; margin-bottom: 15px;"></p>
 
-        <div class="dashboard">
+        <div class="dashboard-grid">
             <div class="card">
                 <h3>Productos</h3>
                 <p id="cantProductos">0</p>
@@ -40,9 +205,33 @@
                 <h3>Ingresos</h3>
                 <p id="ingresos">$0</p>
             </div>
-            <div class="card">
-                <h3>Stock Bajo</h3>
+            <div class="card" id="cardStockBajo">
+                <h3>Poco Stock</h3>
                 <p id="stockBajo">0</p>
+                <div id="stockAlerta" class="stock-alerta"></div>
+            </div>
+            <div class="card" id="cardSinStock">
+                <h3>Sin Stock</h3>
+                <p id="sinStock">0</p>
+                <div id="sinStockAlerta" class="stock-alerta"></div>
+            </div>
+        </div>
+
+        <div id="detalleStockBajo" class="detalle-stock-bajo"></div>
+        <div id="detalleSinStock" class="detalle-sin-stock"></div>
+
+        <div class="info-extra">
+            <div class="card">
+                <h4>Producto mas vendido</h4>
+                <div class="valor" id="productoMasVendido">-</div>
+            </div>
+            <div class="card">
+                <h4>Venta del dia</h4>
+                <div class="valor" id="ventaDelDia">$0</div>
+            </div>
+            <div class="card">
+                <h4>Ventas hoy</h4>
+                <div class="valor" id="ventasHoy">0</div>
             </div>
         </div>
 

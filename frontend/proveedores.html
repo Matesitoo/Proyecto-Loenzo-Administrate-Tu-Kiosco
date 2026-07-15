@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Proveedores - Adminístrate tu Kiosco</title>
+    <link rel="stylesheet" href="css/estilos.css">
+    <script>
+        if (localStorage.getItem("sesionActiva") !== "true") {
+            window.location.href = "login.html";
+        }
+    </script>
+</head>
+<body>
+    <nav class="sidebar">
+        <h2>Adminístrate tu Kiosco</h2>
+        <a href="index.html">Inicio</a>
+        <a href="productos.html">Productos</a>
+        <a href="ventas.html">Ventas</a>
+        <a href="historial.html">Historial</a>
+        <a href="reportes.html">Reportes</a>
+        <a href="proveedores.html" class="active">Proveedores</a>
+        <a href="pedidos.html">Pedidos</a>
+        <a href="caja.html">Caja</a>
+        <a href="calculadora.html">Calculadora</a>
+        <a href="#" onclick="cerrarSesion()" style="margin-top: 30px; background: #dc2626; color: white;">Cerrar Sesion</a>
+    </nav>
+
+    <main class="contenido-principal">
+        <h1 class="titulo">Gestion de Proveedores</h1>
+
+        <div class="card">
+            <div style="display:grid; grid-template-columns: 1fr 1fr; gap:15px;">
+                <input type="text" id="provNombre" placeholder="Nombre del proveedor">
+                <input type="text" id="provTelefono" placeholder="Telefono">
+                <input type="text" id="provDireccion" placeholder="Direccion">
+                <input type="email" id="provEmail" placeholder="Email">
+            </div>
+            <button onclick="agregarProveedor()" style="margin-top:15px;">Agregar Proveedor</button>
+        </div>
+
+        <br>
+
+        <table>
+            <thead>
+                <tr>
+                    <th>Nombre</th>
+                    <th>Telefono</th>
+                    <th>Direccion</th>
+                    <th>Email</th>
+                    <th>Acciones</th>
+                </tr>
+            </thead>
+            <tbody id="tablaProveedores"></tbody>
+        </table>
+    </main>
+
+    <script src="js/utils.js"></script>
+    <script src="js/proveedores.js"></script>
+</body>
+</html>

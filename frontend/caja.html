@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Caja - Adminístrate tu Kiosco</title>
+    <link rel="stylesheet" href="css/estilos.css">
+    <script>
+        if (localStorage.getItem("sesionActiva") !== "true") {
+            window.location.href = "login.html";
+        }
+    </script>
+</head>
+<body>
+    <nav class="sidebar">
+        <h2>Adminístrate tu Kiosco</h2>
+        <a href="index.html">Inicio</a>
+        <a href="productos.html">Productos</a>
+        <a href="ventas.html">Ventas</a>
+        <a href="historial.html">Historial</a>
+        <a href="reportes.html">Reportes</a>
+        <a href="proveedores.html">Proveedores</a>
+        <a href="pedidos.html">Pedidos</a>
+        <a href="caja.html" class="active">Caja</a>
+        <a href="calculadora.html">Calculadora</a>
+        <a href="#" onclick="cerrarSesion()" style="margin-top: 30px; background: #dc2626; color: white;">Cerrar Sesion</a>
+    </nav>
+
+    <main class="contenido-principal">
+        <h1 class="titulo">Gestion de Caja</h1>
+
+        <div class="card">
+            <h2>Estado de Caja</h2>
+            <div id="estadoCaja"></div>
+            <div id="accionesCaja"></div>
+        </div>
+
+        <div class="card">
+            <h2>Resumen del Dia</h2>
+            <div id="resumenCaja"></div>
+        </div>
+
+        <div class="card">
+            <h2>Historial de Movimientos</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Fecha</th>
+                        <th>Tipo</th>
+                        <th>Monto</th>
+                        <th>Diferencia</th>
+                        <th>Usuario</th>
+                    </tr>
+                </thead>
+                <tbody id="tablaMovimientosCaja"></tbody>
+            </table>
+        </div>
+    </main>
+
+    <script src="js/utils.js"></script>
+    <script src="js/caja.js"></script>
+</body>
+</html>
